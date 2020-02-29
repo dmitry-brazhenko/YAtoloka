@@ -1,0 +1,64 @@
+{
+  "public_name": "Сравнение скриншотов",
+  "public_description": "Сравните картинки и выберите лучшую!",
+  "public_instructions": "В этом задании вам будут показаны пары картинок. Это могут быть примеры интерфейсов или поисковых выдач. <div><br /></div><div>Из двух выберите ту, которая вам нравится больше. </div>",
+  "task_spec": {
+    "input_spec": {
+      "question": {
+        "type": "string",
+        "hidden": false,
+        "required": false
+      },
+      "image_left": {
+        "type": "string",
+        "hidden": false,
+        "required": true
+      },
+      "image_right": {
+        "type": "string",
+        "hidden": false,
+        "required": true
+      }
+    },
+    "output_spec": {
+      "result": {
+        "type": "string",
+        "hidden": false,
+        "required": true
+      },
+      "comment": {
+        "type": "string",
+        "hidden": false,
+        "required": false
+      }
+    },
+    "view_spec": {
+      "type": "classic",
+      "assets": {
+        "style_urls": [],
+        "script_urls": [
+          "$TOLOKA_ASSETS/js/toloka-handlebars-templates.js"
+        ]
+      },
+      "markup": "<div class=\"content clearfix\">\n  \n  <div> {{question}} </div><br>\n  \n    <div class=\"left image\">\n        {{{image_left}}}\n    </div>\n    <div class=\"right image\">\n        {{{image_right}}}\n    </div>\n</div>\n\n<div class=\"footer\">\n    {{field type=\"radio\" name=\"result\" label=\"Слева лучше\" value=\"LEFT\" hotkey=\"1\"}}\n    {{field type=\"radio\" name=\"result\" label=\"Справа лучше\" value=\"RIGHT\" hotkey=\"2\"}}<br><br>\n  <div>Пожалуйста, поясните ваш выбор:</div><br>\n  {{field type=\"textarea\" name=\"comment\"}}\n  \n</div>\n",
+      "script": "exports.Task = extend(TolokaHandlebarsTask, function (options) {\n  TolokaHandlebarsTask.call(this, options);\n}, {\n  onRender: function() {\n    // DOM-элемент задания сформирован (доступен через #getDOMElement()) \n  },\n  onDestroy: function() {\n    // Задание завершено, можно освобождать (если были использованы) глобальные ресурсы\n  }\n});\n\nfunction extend(ParentClass, constructorFunction, prototypeHash) {\n  constructorFunction = constructorFunction || function () {};\n  prototypeHash = prototypeHash || {};\n  if (ParentClass) {\n    constructorFunction.prototype = Object.create(ParentClass.prototype);\n  }\n  for (var i in prototypeHash) {\n    constructorFunction.prototype[i] = prototypeHash[i];\n  }\n  return constructorFunction;\n}\n",
+      "styles": ".task {\n  display: block;\n  height: 75%;\n}\n\n.image {\n  display: inline-block;\n  width: 50%;\n}\n\n.left {\n  float: left;\n}\n\n.right {\n  float: right;\n}\n\n.clearfix {\n  overflow: hidden;\n  width: 100%;\n  height: 70%;\n}\n\n.field {\n  width: 45%\n} \n",
+      "settings": {
+        "showSkip": true,
+        "showTimer": true,
+        "showTitle": true,
+        "showFinish": true,
+        "showReward": true,
+        "showSubmit": true,
+        "showMessage": true,
+        "showFullscreen": true,
+        "showInstructions": true
+      }
+    }
+  },
+  "assignments_issuing_type": "AUTOMATED",
+  "assignments_automerge_enabled": false,
+
+  "status": "ACTIVE",
+  "created": "2019-11-28T13:56:42.573"
+}

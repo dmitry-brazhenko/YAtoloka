@@ -1,0 +1,15 @@
+{
+    "pool_id": "8803290",
+    "tasks": [
+
+        {
+          "input_values": {
+              "question":"Какой дизайн приложения вам нравится больше?",
+              "image_left": "https://sbs.s3.yandex.net/44aebb8c77a29efa25e8a5d1ac4eba9877b84efa1147b4b003b2a8380273cc73.png",
+              "image_right": "https://sbs.s3.yandex.net/93656faf648029e3bf4bf18421b3dc08d85fe4bdd2683498cbf497f0487e89db.png"
+           },
+
+        }
+    ],
+    "overlap": 5,
+}

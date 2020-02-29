@@ -1,0 +1,187 @@
+{
+  "private_name": "template pool",
+  "private_comment": "",
+  "may_contain_adult_content": true,
+  "will_expire": "2025-03-01T21:00:00",
+  "auto_close_after_complete_delay_seconds": 0,
+  "reward_per_assignment": 0.02,
+  "assignment_max_duration_seconds": 600,
+  "auto_accept_solutions": true,
+  "assignments_issuing_config": {
+    "issue_task_suites_in_creation_order": false
+  },
+  "filter": {
+    "and": [
+      {
+        "or": [
+          {
+            "category": "computed",
+            "key": "region_by_phone",
+            "operator": "IN",
+            "value": 225
+          },
+          {
+            "category": "computed",
+            "key": "region_by_phone",
+            "operator": "IN",
+            "value": 187
+          },
+          {
+            "category": "computed",
+            "key": "region_by_phone",
+            "operator": "IN",
+            "value": 159
+          },
+          {
+            "category": "computed",
+            "key": "region_by_phone",
+            "value": 149,
+            "operator": "IN"
+          }
+        ]
+      },
+      {
+        "or": [
+          {
+            "category": "profile",
+            "key": "languages",
+            "operator": "IN",
+            "value": "RU"
+          }
+        ]
+      }
+    ]
+  },
+  "quality_control": {
+    "captcha_frequency": "MEDIUM",
+    "configs": [
+      {
+        "collector_config": {
+          "type": "SKIPPED_IN_ROW_ASSIGNMENTS",
+          "uuid": "78de4258-ff33-40b3-aa21-7658e83f3f1a",
+          "parameters": {}
+        },
+        "rules": [
+          {
+            "conditions": [
+              {
+                "key": "skipped_in_row_count",
+                "operator": "GTE",
+                "value": 1
+              }
+            ],
+            "action": {
+              "type": "RESTRICTION",
+              "parameters": {
+                "private_comment": "skipped a task",
+                "scope": "PROJECT",
+                "duration_days": 1
+              }
+            }
+          }
+        ]
+      },
+      {
+        "collector_config": {
+          "type": "CAPTCHA",
+          "uuid": "edc1658f-7767-4f99-9380-13aaf50a22fb",
+          "parameters": {
+            "history_size": 10
+          }
+        },
+        "rules": [
+          {
+            "conditions": [
+              {
+                "key": "stored_results_count",
+                "operator": "EQ",
+                "value": 10
+              },
+              {
+                "key": "success_rate",
+                "operator": "LTE",
+                "value": 70.0
+              }
+            ],
+            "action": {
+              "type": "RESTRICTION",
+              "parameters": {
+                "private_comment": "captcha",
+                "scope": "PROJECT",
+                "duration_days": 1
+              }
+            }
+          }
+        ]
+      },
+      {
+        "collector_config": {
+          "type": "ANSWER_COUNT",
+          "uuid": "b29fe95d-bc1b-44ec-acee-c083a8c6f2fa",
+          "parameters": {}
+        },
+        "rules": [
+          {
+            "conditions": [
+              {
+                "key": "assignments_accepted_count",
+                "operator": "GTE",
+                "value": 1
+              }
+            ],
+            "action": {
+              "type": "RESTRICTION",
+              "parameters": {
+                "private_comment": "enough tasks",
+                "scope": "POOL",
+                "duration_days": 1
+              }
+            }
+          }
+        ]
+      },
+      {
+        "collector_config": {
+          "type": "ASSIGNMENT_SUBMIT_TIME",
+          "uuid": "b83a7d16-e60d-4ca9-b78b-da30fdc87f10",
+          "parameters": {
+            "fast_submit_threshold_seconds": 10,
+            "history_size": 20
+          }
+        },
+        "rules": [
+          {
+            "conditions": [
+              {
+                "key": "total_submitted_count",
+                "operator": "EQ",
+                "value": 20
+              },
+              {
+                "key": "fast_submitted_count",
+                "operator": "GTE",
+                "value": 12
+              }
+            ],
+            "action": {
+              "type": "RESTRICTION",
+              "parameters": {
+                "private_comment": "too fast",
+                "scope": "PROJECT",
+                "duration_days": 1
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "defaults": {
+    "default_overlap_for_new_task_suites": 10
+  },
+  "priority": 0,
+  
+  "type": "REGULAR",
+  "status": "CLOSED",
+  "created": "2019-11-28T07:10:46.301"
+}
